@@ -1,3 +1,6 @@
+variable "cluster_size" {
+  type = "string"
+}
 variable "consul_version" {
   type = "string"
 

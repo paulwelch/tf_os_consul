@@ -48,7 +48,8 @@ data "template_file" "retry_join_params" {
 }
 
 data "template_file" "param" {
-  count = "${ length(var.server_ips) }"
+#  count = "${ length(var.server_ips) }" #this would allow removing redundant cluster_size param, but terraform crashes doing it this way if dependencies are not already applied - works on a 2nd run after they're applied
+  count = "${ var.cluster_size }"
 
   template = "-retry-join=$${server_addr}"
 

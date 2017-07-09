@@ -37,6 +37,7 @@ module "consul_client_config" {
 
   consul_version = "${ var.consul_version }"
   data_dir = "/tmp/consul/data"
+  cluster_size = "${ var.cluster_size }"
   server_ips = "${ module.consul.consul_endpoints }"
   client_ip = "[INSERT CLIENT IP HERE]"
 }
