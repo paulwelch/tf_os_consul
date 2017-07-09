@@ -10,8 +10,9 @@ sudo docker run \
   consul agent -server $${bootstrap_params}\
     -ui \
     -data-dir=/consul/data \
-    -bind=$${host_addr} \
-    -client=$${host_addr} \
+    -bind=0.0.0.0 \
+    -client=0.0.0.0 \
+    -advertise=$${host_addr} \
     -retry-join=$${seed_addr}
 EOF
 
