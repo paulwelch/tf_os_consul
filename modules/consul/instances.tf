@@ -38,15 +38,7 @@ resource "openstack_compute_instance_v2" "consul_cluster" {
     user = "core"
     private_key = "${ file(var.private_key_file) }"
   }
-/*
-  provisioner "remote-exec" {
-    inline = [
-      "${ coalesce(data.template_file.cluster_bootstrap.*.rendered[count.index], data.template_file.cluster_join.*.rendered[count.index]) }",
-      "${ data.template_file.cluster_health.*.rendered[count.index] }",
-      "sudo systemctl start consul"
-    ]
-  }
-*/
+
 provisioner "remote-exec" {
   inline = [
     "${ data.template_file.cluster_bootstrap.*.rendered[count.index] }",
@@ -54,6 +46,7 @@ provisioner "remote-exec" {
     "sudo systemctl start consul"
   ]
 }
+
 /*
 ### This should work for scale-in once issue 14548 is resolved
 ### https://github.com/hashicorp/terraform/issues/14548

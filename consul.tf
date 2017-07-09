@@ -32,8 +32,21 @@ module "consul" {
   env_name_prefix = "${ var.env_name_prefix }"
 }
 
+module "consul_client_config" {
+  source = "./modules/consul_client_config"
+
+  consul_version = "${ var.consul_version }"
+  data_dir = "/tmp/consul/data"
+  server_ips = "${ module.consul.consul_endpoints }"
+  client_ip = "[INSERT CLIENT IP HERE]"
+}
+
 #####################################################################
 
 output "consul_endpoints" {
   value = [ "${ module.consul.consul_endpoints }" ]
+}
+
+output "consul_client_config" {
+  value = [ "${ module.consul_client_config.consul_client_config }" ]
 }
